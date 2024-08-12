@@ -85,9 +85,8 @@ Eigen::VectorXf Network::train(const Eigen::VectorXf& data, const Eigen::VectorX
 
     //Compute final layer L error vector
     std::list<Eigen::VectorXf> errors(layers);
-    // (a^L - y) hamamard product sig'(z^L)
-    // Converts to Eigen::Array for component-wise multiplication
-    // Uses list to push to front.
+
+    // Uses list to push to front, iterator is necessary for access
     auto rit = errors.rbegin();
     *rit = a[layers] - exp_output;
     rit++;
@@ -97,6 +96,7 @@ Eigen::VectorXf Network::train(const Eigen::VectorXf& data, const Eigen::VectorX
     // Come back and double check math related to indexing, seems error-prone ??????
     for (rit; rit != errors.rend(); rit++) {
         *rit = (weights[i + 1].transpose() * ( *std::prev(rit) )).array() * sig_prime(z[i]).array();
+        i--;
     }
 
     // Non-stochastic gradient descent
