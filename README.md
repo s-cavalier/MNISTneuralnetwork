@@ -6,3 +6,5 @@ Implements L2 regularization, dropout, log-loss cost function `(ylna + (1 - y)ln
 Also uses the [Eigen API](https://gitlab.com/libeigen/eigen) for fast linear algebra methods.
 
 For use just go to src and build with `make` and run the corresponding `init.exe` file.
+As a library, remove the `init.exe` and `Input.h / Input.cpp` files. Those are intended exclusively to immediately load/read/use data.
+Only Network.h and Network.cpp are needed for compilation and use.
